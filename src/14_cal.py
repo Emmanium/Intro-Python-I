@@ -22,3 +22,43 @@ and does the following:
 import sys
 import calendar
 from datetime import datetime
+
+# Establish Variables for usage later
+# The except is there in case someone doesn't enter in a valid number
+try:
+    user_yy = int(input('Enter the year:'))
+except:
+    user_yy = None
+try:
+    user_mm = int(input('Enter the month:'))
+except:
+    user_mm = None
+
+curr_yy = datetime.now().year
+curr_mm = datetime.now().month
+
+# If the user input is longer than 4 digits for the year or 2 for the month
+# The program will break
+# Print a message explaining the expected format for arguments to be passed in by User annd
+# Stop the program
+if len(str(user_yy)) > 4 or len(str(user_mm)) > 4:
+    print("Put in only four numbers for the year'\nHere's an example: 2020")
+    print("Put in two numbers for the month\nHere's an example: 12")
+    exit()
+
+# If no input
+# Print current month (datetime module)
+if user_yy is None and user_mm is None:
+    print(calendar.month(curr_yy, curr_mm))
+
+# Else f only one input and not the other:
+# Render the current month of the current year
+elif user_yy is None and user_mm is not None:
+    print(calendar.month(curr_yy, user_mm))
+elif user_yy is not None and user_mm is None:
+    print(calendar.month(user_yy, curr_mm))
+
+# ElSE both inputs are filled
+# Render current month and year
+else:
+    print(calendar.month(user_yy, user_mm))
